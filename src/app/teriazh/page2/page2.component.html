@@ -1,0 +1,581 @@
+<style>
+    .line{
+    height: 1px;
+        background-color: #fcb103
+    }
+    .btnCustome{
+        padding-right:8px !important;
+        padding-left: 8px !important;
+        padding-top: 3px!important;
+        padding-bottom: 3px!important;
+        border: 1px solid;
+        font-size:14px;
+        background-color:#fcb103 ;
+        color: white;
+    }
+    .btnW{
+        padding-right:20px !important;
+        padding-left: 20px !important;
+        padding-top: 3px!important;
+        padding-bottom: 3px!important;
+        border: 1px solid;
+        font-size:14px;
+        background-color:#fcb103 ;
+        color: white;
+
+    }
+    .pos{
+        top: 0;
+        left: 0;
+        transform: translateY(-50%);
+        background-color: #F5F7FA;
+
+    }
+    .Customborder{
+        border: 2px solid #009da0 ;
+    }
+    .form-group{
+        margin-bottom: 1px !important;
+    } 
+    .marT{
+        margin-top: 15px;
+    }
+    .header{
+        background-color: #063d78;
+        color: white;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .header h5{
+        margin-top: 5px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .hide{ 
+        display: none;
+    }
+    .checkSize{
+        width: 20px;
+        height: 20px;
+    }
+    ul li{
+        list-style: none;
+    }
+    .CircleBtn{
+        border-radius: 50%;
+    }
+    .green {
+        color: white !important;
+        background-color: #44b5b7!important;
+    }
+.red {
+    background-color: transparent;
+}
+    .boxShadowSuccess{
+        -webkit-transition: all 0.30s ease-in-out;
+        -moz-transition: all 0.30s ease-in-out;
+        -ms-transition: all 0.30s ease-in-out;
+        -o-transition: all 0.30s ease-in-out;
+        outline: none;
+        padding: 3px 0px 3px 3px;
+        margin: 5px 1px 3px 0px;
+        border: 2px solid #0ABC76;
+    }
+    .active{
+        background-color: #10E8F3;
+    }
+
+
+.btn{
+    border: 1px solid;
+    background-color: white;
+}
+</style>
+<form action=""  [formGroup]="triageForm"  (ngSubmit)="onSubmit()">
+
+    <div class="container-fluid"  style="font-family: iransans, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;padding: 5px">
+            <div style="border: 1px solid #b3b0af;background-color: #f2f2f2;" class="mt-1">
+                <div class="header">
+                        <h5 >مشخصات بیمار</h5>
+                    <h5>Patient Information</h5>
+                </div>
+                <div action="" style="padding:10px" >
+                    <div class="row mt-2" >
+                        <div class=" col-12 " style="text-align: right;">
+                            <input type="checkbox" class="checkSize" id="" value=""   (click)="disable()" formControlName="patientIsNotIdentity">
+                            <label for="" style="font-size: 20px;" class="font-weight-bold"   >مجهول الهویه</label>
+                        </div>
+                    </div>
+                </div>
+            <div class="row form-group mt-1">
+                <div class="col-12  "  >
+                    <div action="" class="d-flex justify-content-between  "  >
+                        <div class="form-group col-2   " style="text-align: right"   >
+                            <label for="" style="font-size: 15px; text-align: right"   class="font-weight-bold">
+                                <span style="font-size: 1.2rem;color: red" *ngIf="firstnameValid===false"> *</span>
+
+                                نام
+                            </label>
+                        <div class="form-group ">
+                            <input type="text" [readonly]='isDisable' [(ngModel)]="firstname" [value]="firstname"   (input)="setfirst($event)" class="form-control " autocomplete="off" id="" formControlName="name" >
+                        </div>
+                    </div>
+                        <div class="form-group col-2 " style="text-align: right" >
+                            <label for="" style="font-size: 15px;" class="font-weight-bold">
+                                <span style="font-size: 1.2rem;color: red" *ngIf="lastNameValid===false"> *</span>
+                                نام خانوادگی</label>
+                        <div class="form-group ">
+                            <input type="text" [readonly]="isDisable" [(ngModel)]="Lastname" [value]="Lastname" class="form-control " (input)="setLastName($event)" autocomplete="off" value="" formControlName="lastName">
+                        </div>
+                    </div>
+                        <div class="form-group col-2 " style="text-align: right">
+                            <label for="" style="font-size: 15px;" class="font-weight-bold">
+                                <span style="font-size: 1.2rem;color: red" *ngIf="DateValid===false"> *</span>
+                                تاریخ تولد</label>
+                      
+                        <div class=" col-12 ">
+                            <dp-date-picker
+                            dir="rtl"
+                            formControlName="birthDate"
+                            [(ngModel)]="birthDatepatient"
+                            mode="day"
+                            class="form-control"
+                            placeholder="تاریخ"
+                            theme="dp-material" [disabled]='isDisable' (onChange)="getbirthDate($event)">
+                    </dp-date-picker>
+
+                        </div>
+                    </div>
+                        <div class="form-group col-2 " style="text-align: right">
+                            <label for="" style="font-size: 15px;" class="font-weight-bold" >   کد ملی</label>
+                        
+                        <div class="form-group ">
+                            <input type="text" [readonly]='isDisable' (input)="setNationalCOde($event)" [(ngModel)]="nationalCode" autocomplete="off" MAXLENGTH="10" class="form-control " id="" value="" formControlName="nationalCode" >
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group mt-3">
+                <div class="col-12">
+                <div class="col-12">
+                    <div action="" class="form-inline">
+                        <div class="form-group">
+                            <label for="" style="font-size: 15px;" class="font-weight-bold" > جنسیت<span style="color: red;font-size: 1.2rem"  *ngIf="validGender===false">*</span></label>
+                        </div>
+                        <div class="form-group col-2" ngDefaultControl formControlName="gender">
+
+                                <button type="button"   *ngFor="let i of genderList;let y = index" [style.background-color]="i.BackgroundColour" [style.color]="i.color"   (click)="getGenderType(i.Key,i)" class="btn " >{{i.Value}}
+                                </button>
+
+
+
+
+                          
+                        </div>
+                                <div style="display: flex;" *ngIf="isShown">
+                                    <div class="form-group" >
+                                        <label for="" style="font-size: 15px;" class="font-weight-bold" ngDefaultControl formControlName="pregmentType" >وضعیت بارداری</label>
+                                    </div>
+                                   
+                                        <button type="button" class="btn " [style.background-color]="i.BackgroundColour" [style.color]="i.color" *ngFor="let i of pragnentList" (click)="getPregmentType(i.Key,i)">{{i.Value}}</button>
+                                </div>
+                        <div class="form-group  " style="margin-right: 10px;">
+                            <label for="" style="font-size: 15px;" class="font-weight-bold" >سن   <span style="color: red;font-size: 1.2rem"  *ngIf="validAge===false">*</span></label>
+                            <input type="number" style="width: 100px;text-align: center " [(ngModel)]="age" (input)="setage($event)" name="age"  formControlName="age"  autocomplete="off" min="0">
+                        </div>
+                        <div class="form-group col-3"  >
+                            <button type="button" class="btn "   ngDefaultControl formControlName="ageType" *ngFor="let i of ageTypeLst"  [style.background-color]="i.BackgroundColour" [style.color]="i.color" (click)="sendData(i.Key,i)">{{i.Value}}  </button>
+                            <span style="color: red;font-size: 1.2rem" *ngIf="ageTypeValid===false">
+                                *
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div style="border: 1px solid #b3b0af; background-color: #f2f2f2;">
+                <div class="header">
+                        <h5 style="text-align: center;"> مراجعه</h5>
+                    <h5 style="text-align: center;"> Arrival Information</h5>
+                </div>
+            <div class="row form-group mt-1">
+                <div class="col-12 " >
+                    <div action="" class="form-inline">
+                        <div class="form-group">
+                            <label for="" style="font-size: 15px;" class="font-weight-bold" >نحوه مراجعه  <span style="color: red;font-size: 1.2rem" *ngIf="validTranspoerter===false">
+                                *
+                            </span></label>
+                        </div>
+                            <div class="form-group col-10" ngDefaultControl  formControlName="TransportList" >
+                                <button  *ngFor="let i of transportList" [style.background-color]="i.BackgroundColour" [style.color]="i.color" type="button" class="btn " (click)="getTransportType(i.Key,i)"> {{i.Value}}</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="row form-group mt-3">
+                <div class="col-12">
+                    <div action="" class="form-inline">
+                        <div class="form-group ">
+                            <label for="" style="font-size: 15px;" class="font-weight-bold" >
+                                 <span style="color: red;font-size: 1.2rem" *ngIf="validEnterance===false">
+                                *
+                            </span>
+                                نحوه ورود
+
+                            </label>
+                        </div>
+                        <div class="form-group col-4" ngDefaultControl formControlName="entrnaceType">
+                            <button type="button"  [style.background-color]="i.BackgroundColour" [style.color]="i.color"  class="btn " *ngFor="let i of EntranceList; let y = index" (click)="getEntrnaceType(i.Key,i)"  >
+                                 {{i.Value}}
+                            </button>            
+                        </div>
+                        <div class="form-group ">
+                            <label for="" style="font-size: 15px;" class="font-weight-bold" >
+
+                                مراجعه در 24 ساعت گذشته</label>
+                        </div>
+                        <div class="form-group col-4" ngDefaultControl formControlName="lastDay">
+                            <button [style.background-color]="i.BackgroundColour" [style.color]="i.color" type="button" class="btn " *ngFor="let i of Encounter24HoursAgoList" (click)="getLastDayType(i.Key,i)"  value="" > {{i.Value}}</button>
+                          
+                        </div>
+                    </div>
+
+                
+                    <div class="row form-group">
+                        <div class="col-12 mt-3 d-flex ">
+                            <div class="col-6">
+                                <div action="" class="form-inline ">
+                                    <div class="form-group ">
+                                        <label for="" style="font-size: 15px;" class="font-weight-bold mt-1" ngDefaultControl formControlName="admissionKind" >
+                                            <span style="color: red;font-size: 1.2rem" *ngIf="AdmisionValid===false">*</span>
+                                            دلیل مراجعه
+                                        </label>
+                                    </div>
+
+                                        <div class="form-group  " style="display: block;"  >
+                                            <input type="text"  id="AdmissionInput" class="form-control mt-1" placeholder="جستجو کنید ..."  autocomplete="off" [(ngModel)]="searchText" (click)="showList()" (keydown)="save($event)"   (input)="onSearch($event)"    [ngModelOptions]="{standalone: true}" >
+                                            <ul id="ul" class="list-group position-absolute " style="max-height: 200px;overflow-y: scroll;text-align: right;background-color: white;z-index: 1000;width: 300px"  >
+
+                                                <li  [class.active]="y==arrowkeyLocation" (click)="set(i.id,i.admissionKindValue)" class="list-item-group" style="cursor: pointer;border-bottom: 1px solid lightgray" *ngFor=" let i of serchlist; let y = index"   >
+                                                    {{i.admissionKindValue}}
+                                                </li>
+                                            </ul>
+
+                                            <!--<mat-nav-list  class="list-group position-absolute "  role="list" style="max-height: 200px;overflow-y: scroll;text-align: right;background-color: white;z-index: 1000;width: 300px"> -->
+                                            <!--<a mat-list-item role="listitem"  *ngFor=" let i of serchlist;let y=index "  tabindex="0">  {{i.admissionKindValue}}</a>-->
+                                            <!---->
+                                            <!--</mat-nav-list>-->
+                                            <ul id="ul2"     class="list-group position-absolute "  style="max-height: 200px;text-align: right;background-color: white;z-index: 1001;overflow-y:scroll;width: 300px" *ngIf="showListAdd">
+                                                <li   (click)="set(i.id,i.admissionKindValue)" [class.active]="x==arrowkeyLocation"  style="cursor: pointer;border-bottom: 1px solid lightgray;" *ngFor="let i of AdmissionKindList;let x = index"  >
+                                                    <!--{{i.admissionKindValue}}-->
+                                                 <!--<input [(ngModel)]="i.admissionKindValue" formControlName="qqq" required>-->
+                                                        {{i.admissionKindValue}}
+                                                </li>
+                                            </ul>
+
+
+
+
+
+                                            <!-- <input  type="text"  class="form-control" style="display: block;"   matInput (input)="onSearchChange($event)" value="{{inputValue1}}" />
+                                        <div>
+                                            <ul style="text-align: left;height: 150px;overflow-x:hidden;overflow-y: scroll ;list-style: none" *ngIf="serchlist.length >0" >
+                                                <li  *ngFor="let i of AdmissionKindList">
+                                                    <button style="border: none;background-color: #f5f7fa;font-size: 14px;text-align: left;" class="w-100"  >{{i.admissionKindValue}}</button>
+                                                </li>
+                                         <!-- </div>    -->
+                                        </div>
+
+
+
+                                    <div class="col-1" style="text-align: right;margin-top: 10px;margin-bottom: 4px;padding: 0">
+                                        <button class="btn " (click)="addToResone()" type="button" type="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="form-group  " style="margin-top: 5px">
+                                        <span style="color: red;font-size: 1.2rem" *ngIf="otherAdmissionKindCaseValid===false">*</span>
+
+                                        <input type="text" class="form-control" (input)="getOtherAdmissionKind($event)"  placeholder="دلیل مراجعه را وارد کنید " formControlName="admissionKindText" [(ngModel)]="AdmissionFrom" autocomplete="off">
+
+                                        <button class="btn" (click)="addToOtherCaseAdmissionKind()" type="button">ثبت </button>
+
+                                        <!--<button type="button" (click)="addAdmissionFromInput()" class="btn " style="margin:0;" >ثبت</button>-->
+                                    </div>
+                                    <!--<div class="col-4" >-->
+                                        <!--<ul class="list-group d-flex">-->
+                                            <!--<li class="list-group-item " *ngFor="let i of list" class="mx-2" style="font-size: 20px;">{{i}}</li>-->
+                                        <!--</ul>-->
+
+                                        <!--&lt;!&ndash;<ul   style="display: flex;">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<li *ngFor="let i of list" class="mx-2" style="font-size: 20px;">{{i}} |</li>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div action="" class="form-inline">
+                                    <div class="form-group  ">
+                                        <label for="" style="font-size: 15px;" class="font-weight-bold mt-1 " ngDefaultControl   formControlName="MainDisease">
+                                            <span style="color: red;font-size: 1.2rem" *ngIf="mainDeseaseValid===false">*</span>
+
+                                            شکایت اصلی </label>
+                                    </div>
+                                    <div class="form-group " style="display: block;">
+                                        <input  type="text"  autocomplete="off" (click)="showListMain()" (keydown)="saveMainDesease($event)" class="form-control mt-1" placeholder="جستجو کنید .." style="display: block;"   matInput (input)="onSearchMainDesease($event)"  [(ngModel)]="mainDiseaseSearch" [ngModelOptions]="{standalone: true}" id="myInput" />
+                                        <div>
+                                            <ul id="ul3" class="list-group position-absolute " style="max-height: 200px;overflow-y: scroll;text-align: right;background-color: white;z-index: 1000;width: 300px;font-family: iransans"  >
+                                                <li [class.active]="y==arrowkeyLocation2" (click)="setMainDesease(i.id,i.mainDiseaseValue)" *ngFor="let i of MainDeseaseSearchList;let y=index" style="cursor: pointer;border-bottom: 1px solid lightgray;">
+                                                    {{i.mainDiseaseValue}}
+                                                </li>
+                                            </ul>
+                                            <ul id="ul4"  class="list-group position-absolute "  style="max-height: 200px;overflow-y: scroll;text-align: right;background-color: white;z-index: 1001;width: 300px" *ngIf="showListMainDesease">
+                                                <li [class.active]="a==arrowkeyLocation2" style="cursor: pointer;border-bottom: 1px solid lightgray;" (click)="setMainDesease(i.id,i.mainDiseaseValue)" *ngFor="let i of MainDiseaseList;let a=index">{{i.mainDiseaseValue}}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-1" style="text-align: right;margin-top: 10px;margin-bottom: 4px;margin-left: 5px;padding: 0">
+                                        <button class="btn " (click)="addToMainDiseaseList()" type="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                            </svg>
+                                        </button>
+
+
+                                    </div>
+                                    <div class="form-group " style="margin-top: 5px">
+                                        <span style="color: red;font-size: 1.2rem" *ngIf="otherMaindeseaseCaseValid===false">*</span>
+                                        <input type="text" (input)="getOtherMainDesease($event)" class="form-control" autocomplete="off" placeholder="شکایت اصلی را وارد کنید"  ngDefaultControl formControlName="MainDiseaseText">
+                                        <button class="btn" type="button" (click)="addToOtherCaseMainDesease()">ثبت </button>
+                                        <!--<button type="button" (click)="addMainDiseaseInput()" class="btn " style="margin:0;" >ثبت</button>-->
+                                        <!--<div class="">-->
+                                            <!--<ul   style="display: flex;">-->
+                                                <!--<li *ngFor="let i of MainDeseaseList" class="mx-2" style="font-size: 20px;" >{{i}} |</li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+            <div class="row form-group">
+                <div class="col-12 mt-3 d-flex text-right">
+                    <div class="col-6  d-flex " style="text-align: right;height: 80px;border: 1px solid black; overflow-x: scroll;overflow-y:hidden;background-color: white">
+                        <ul class=" d-flex" style="display: flex!important;">
+                        <li class=" " *ngFor="let i of list" class="mx-2 mt-1" style="font-size: 20px;">{{i}} </li>
+                        </ul>
+                        <ul class="d-flex mt-1"  style="font-size: 20px;">
+
+                            <li *ngFor="let i of admissionKindTextList">
+                                {{i.description}}
+
+                            </li>
+                            <li *ngIf="liststring!=null">
+                                {{liststring}}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 d-flex" style="text-align: right;height: 80px;border: 1px solid black;background-color: white;overflow-x: scroll;overflow-y: hidden">
+                        <ul class="mt-1"   style="display: flex;">
+                        <li *ngFor="let i of MainDeseaseList" class="mx-2 mt-1" style="font-size:20px;" >{{i}} <span style="width: 1px;height: 60px;background-color: black"></span> </li>
+                            <li class="mx-2 mt-1" style="font-size:20px; " *ngIf="MainDeseaseListliststring!=null">
+                                {{MainDeseaseListliststring}}
+                            </li>
+                        </ul>
+                        <ul style="display: flex;">
+                            <li *ngFor="let i of othermainDeseasePush" class="mx-2" style="font-size: 20px">{{i.description}}</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-12 mt-3">
+                    <div action="" class="form-inline">
+                        <div class="form-group ">
+                            <label for="" style="font-size: 15px;color: red;" class="font-weight-bold">
+                                <span style="color: red;font-size: 1.2rem" *ngIf="foodSenseValid===false">*</span>
+
+                                حساسیت غذایی</label>
+                        </div>
+                        <div class="form-group col-3" ngDefaultControl   formControlName="sensetiveFoodType">
+                            <button type="button" class="btn " [ngClass]="{'green' : toggle}"   (click)="GetDetails(content)">بله</button>
+                            <button type="button" class="btn " [ngClass]="{'green' : toggle1}" (click)="seseFood()">خیر</button>
+
+                        </div>
+                        <div action="" class="form-inline d-flex">
+                            <div class="form-group ">
+                                <label for="" style="font-size: 15px;color: red;" class="font-weight-bold">
+                                    <span style="color: red;font-size: 1.2rem" *ngIf="drugAllerguValid===false">*</span>
+
+                                    حساسیت دارویی</label>
+                            </div>
+                            <div ngDefaultControl   formControlName="DrugAllergy">
+
+                                <button type="button" class="btn " [ngClass]="{'green' : toggle2}" (click)="GetDrugAllergyDetails(content2)">بله</button>
+                                <button type="button" class="btn " [ngClass]="{'green' : toggle3}" (click)="getDrugAllergy()">خیر</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+                    <div class="row" *ngIf="showFood">
+                        <div class="col-12">
+                            <div class="col-4" style="background-color: white;border: 1px solid black">
+                <ul class="d-flex">
+                    <li class="mx-1 mt-2 " *ngFor="let i of foodPAtientValueList;let myIndex=index " style="background-color: lightslategray;color: white;padding: 5px">
+                        <span style="color: white">{{i}}</span>
+
+                        <span (click)="removeItem(myIndex)">
+<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"  fill="currentColor" style="cursor: pointer;margin-right: 5px" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </span>
+
+                    </li>
+                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div style="border: 1px solid #b3b0af;background-color: #f2f2f2;font-family: Tahoma;">
+                <div class="header">
+                    <h5 >الگوریتم تریاژ</h5>
+                    <h5 >Emergancy severity Index(ESI) Algorithim</h5>
+                </div>
+
+                <div class="row form-group" style="text-align: left!important;direction: ltr;">
+                    <div class="col-12 " >
+                        <div action="" class="form-group">
+                            <div class="mt-3" style="font-size: 20px;">
+                                <button  id="level1" type="button" (click)="onSubmit()" [disabled]="triageForm.status==='INVALID' || validGender==false || validTranspoerter==false || validEnterance==false || AdmisionValid==false && otherAdmissionKindCaseValid==false || mainDeseaseValid==false && otherMaindeseaseCaseValid==false  ||foodSenseValid==false || drugAllerguValid==false || ageTypeValid==false " class="checkSize mr-1 CircleBtn "   [routerLink]="['/teriazh/Triage-level-1']" ></button>
+
+                                <span class="font-weight-bold" >A:Patient require immediate life-saving intervention(Level1)</span>
+                            </div>
+                            <div class="mt-2"  style="font-size: 20px;">
+                                <button id="level2" type="submit" (click)="onSubmit()" [disabled]="triageForm.status==='INVALID' || validGender==false || validTranspoerter==false || validEnterance==false || AdmisionValid==false && otherAdmissionKindCaseValid==false  || mainDeseaseValid==false &&  otherMaindeseaseCaseValid==false ||foodSenseValid==false || drugAllerguValid==false || ageTypeValid==false " class="checkSize mr-1 CircleBtn "   [routerLink]="['/teriazh/Triage-level-2']" ></button>
+                                <span class="font-weight-bold">B: Patient should not wait to be seen (Level2)</span>
+                            </div>
+                            <div class="mt-2"  style="font-size: 20px;">
+                                <span style="margin-right: 70px;" class="mr-1 font-weight-bold">C: Resource Needs (Level 3, 4, 5)</span>
+                                <button type="submit" id="level3" [disabled]="triageForm.status==='INVALID' || validGender==false || validTranspoerter==false || validEnterance==false || AdmisionValid==false && otherAdmissionKindCaseValid==false || mainDeseaseValid==false && otherMaindeseaseCaseValid==false  ||foodSenseValid==false || drugAllerguValid==false || ageTypeValid==false " (click)="onSubmit()" class="checkSize mr-1 CircleBtn "   [routerLink]="['/teriazh/Triage-level-3']" ></button>
+                                <span for=""  style="margin-right: 20px;font-size: 13px" class="mr-1 font-weight-bold"  >Many</span>
+                                <button id="level4" type="submit" [disabled]="triageForm.status==='INVALID' || validGender==false || validTranspoerter==false || validEnterance==false || AdmisionValid==false && otherAdmissionKindCaseValid==false || mainDeseaseValid==false && otherMaindeseaseCaseValid==false  ||foodSenseValid==false || drugAllerguValid==false || ageTypeValid==false "  (click)="onSubmit()" class="checkSize mr-1 CircleBtn "   [routerLink]="['/teriazh/Triage-level-4']" ></button>
+                                <span for="" style="margin-right: 20px;font-size: 13px;"  class="mr-1 font-weight-bold">One</span>
+                                <button id="level5" type="submit"  (click)="onSubmit()" [disabled]="triageForm.status==='INVALID' || validGender==false || validTranspoerter==false || validEnterance==false || AdmisionValid==false && otherAdmissionKindCaseValid==false || mainDeseaseValid==false && otherMaindeseaseCaseValid==false  ||foodSenseValid==false || drugAllerguValid==false || ageTypeValid==false " class="checkSize mr-1 CircleBtn "   [routerLink]="['/teriazh/Triage-level-5']" ></button>
+                                <span for="" style="margin-right: 20px;font-size: 13px;font-weight: bold" class="mr-1 font-weight-bold">None</span>
+                            </div>
+                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        
+
+    </div>
+    </div>
+
+    <ng-template #content let-c="close" let-d="dismiss"  style="font-family: iransans, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" >
+        <div class="modal-header " style="background-color: #63a4ff;
+background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);direction: rtl" >
+          <h4 class="modal-title white" >حساسیت غذایی</h4>
+        </div>
+        <div class="modal-body" id="kbModal-body">
+
+            <div class="col-12"  style="text-align: right;">
+            </div>
+            <div class="col-12" style="text-align: right;"  formControlName="FoodSensitivity">
+                <button class="btn col-3" *ngFor="let i of FoodSensitivityList" [style.background-color]="i.BackgroundColour" [style.color]="i.color" (click)="getFoodSensitivity(i.Key,i,i.Value)"> {{i.Value}}</button>
+                <!--<select name="" id="" style="text-align: right;direction: rtl" class="form-control" formControlName="FoodSensitivity">-->
+                    <!--<option [value]="i.Key" style="text-align: right;font-family: iransans, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;border-bottom: 1px solid lightgray" *ngFor="let i of FoodSensitivityList" (click)="getFoodSensitivity()">{{i.Value}}</option>-->
+                <!--</select>-->
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info btn-raised" (click)="c('Close click')">بستن</button>
+          <button type="button" class="btn btn-info btn-raised" (click)="showFoodPAtient()">تایید</button>
+        </div>
+      </ng-template>
+      <ng-template #content2 let-c="close" let-d="dismiss">
+        <div class="modal-header" style="background-color: #63a4ff;
+background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);text-align: right;direction: rtl" >
+          <h4 class="modal-title white" >حساسیت دارویی</h4>
+        </div>
+        <div class="modal-body" id="kbModal-body">
+            <div class="col-12" ngDefaultControl formControlName="drugList">
+                <input class="form-control boxShadowSuccess" (input)="onSearchDrugSensitivy($event)" type="text" autocomplete="off" (input)="onSearchDrug($event)" [(ngModel)]="drugSearch"  [ngModelOptions]="{standalone: true}" placeholder="...جستجو" >
+            </div>
+
+
+            <div class="col-12 "  style="overflow-y: scroll;border: 1px solid lightgray;height: 50%" *ngIf="drugSensitivy && drugSensitivy.length>0">
+              <ul class="list-group" >
+                  <li class="list-group-item list-group-item-action list-group-item-success w-100" *ngFor="let i of drugSensitivy" >
+                      <span style="width: 300px">{{i.value}}</span>
+                      <span  >
+                          <svg xmlns="http://www.w3.org/2000/svg"  width="25" height="25" fill="currentColor" class="bi bi-plus-square" style="color: #1ab7ea; cursor: pointer;margin-left: 97%" viewBox="0 0 16 16" (click)="addToDrugArray(i.value,i.code)">
+                          <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                      </svg>
+                      </span>
+
+                  </li>
+              </ul>
+            </div>
+            <div class="col-12">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr >
+                        <th scope="col">ردیف</th>
+                        <th scope="col">نام دارو </th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let i of drugArray">
+                        <th scope="row">{{i.code}}</th>
+                        <td>{{i.name}}</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info btn-raised" (click)="c('Close click')">بستن</button>
+            <button type="button" class="btn btn-info btn-raised" (click)="sendDrug()">تایید</button>
+
+        </div>
+      </ng-template>
+</form>
+            
+           
+  
+      
+    
+        
+        
+       
+      
+        
+        
+       
+        
+
+
+
+

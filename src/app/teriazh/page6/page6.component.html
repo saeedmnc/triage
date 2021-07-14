@@ -1,0 +1,1196 @@
+<style>
+
+
+
+    .header{
+        background-color: #063d78;
+        color: white;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+
+    }
+    .header h5{
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .btn{
+        border: 1px solid;
+        background-color: white;
+    }
+    table th {
+        background-color: #48d9fa;
+
+    }
+    table{
+        text-align: center;
+    }
+    .br{
+        border:  2px solid black;
+    }
+    .p0{
+        padding: 0 !important
+    }
+    .br div{
+        padding: 0;
+    }
+    p,span,label,h4,h3,h5{
+        font-weight: bold;
+    }
+    .roundBorder{
+        border: 2px solid gray;
+        border-radius: 10px;
+    }
+    input[type=checkbox]{
+        width:18px;
+        height:18px;
+        margin-right: 3px;
+        margin-left: 3px;
+    }
+    .myDIv{
+        animation: mymove 2s infinite;
+        color: white;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+    }
+    @keyframes mymove {
+        from {background-color: #063d78;}
+        to {background-color: #2a93d4;}
+    }
+
+
+</style>
+
+<form action="" [formGroup]="level4Form"  (ngSubmit)="onSubmit()">
+    <div class="d-flex justify-content-center"  style="direction: rtl;text-align: right;transition: 500ms"  style="font-family: iransans" *ngIf="showResult===true" >
+        <div class="alert alert-light col-4 position-absolute   " style="z-index: 1000;font-size: 1.2em;text-align: right;top: 50%;left: 50%;transform: translate(-50%,-50%)"  role="alert" *ngIf="ISsubmitOK===true">
+            <div class="d-flex justify-content-center" >
+                <span class="mt-3"> ثبت تریاژ با موفقیت انجام شد..</span>
+                <svg xmlns="http://www.w3.org/2000/svg" style="color: limegreen;" width="50" height="50" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                </svg>
+
+            </div>
+            <div class="d-flex" *ngIf="ISsubmitOK===true">
+                <p>کد رهگیری :</p>
+                <P>{{triageID}}</P>
+            </div>
+            <div style="text-align: left">
+                <button class="btn" type="button" (click)="close()"  style="font-family: iransans"> بستن </button>
+            </div>
+
+        </div>
+        <div class="alert alert-light col-4 position-absolute   " style="z-index: 1000;font-size: 1.2em;text-align: right;top: 50%;left: 50%;transform: translate(-50%,-50%)"  role="alert" *ngIf="isSubmitError===true">
+            <div class="d-flex justify-content-center" >
+                <span class="mt-3">{{result}}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" style="color: yellow" height="50" fill="currentColor" class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                    <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                </svg>
+
+            </div>
+            <div style="text-align: left">
+                <button class="btn" type="button" (click)="close()"  style="font-family: iransans"> بستن </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row mb-1">
+            <div class="col-12 ">
+                <div class="header" style="background:   background-color: #d3d3d3;
+        background-image: linear-gradient(315deg, #d3d3d3 0%, #2bc96d 74%);">
+                    <h5>سطح تریاژ بیمار 5</h5>
+                    <h5 style="font-family: Tahoma">   Patient Triage Level 5</h5>
+
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header">
+                        <h5 style="text-align: center;">جداسازی  بیمار و کنترل عفونت</h5>
+                        <h5>:Patient Isolation and Higher of  Precaution</h5>
+
+                    </div>
+                    <div class="col-12  border justify-content-center d-flex  " style="text-align: right;background-color: #f2f2f2;border: 1px solid black !important;" ngDefaultControl formControlName="Separation;"  >
+                        <button type="button" class="btn  mt-2 mb-2 ml-2" [style.background-color]="i.BackgroundColour" [style.color]="i.color" *ngFor='let i of SeparationByInfectionList' (click)="getSeparationByInfectionList(i.Key,i)">
+                            {{i.Value}}
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div  [ngClass]="{'header':refeValid===true,'myDIv':refeValid===false}">
+                        <h5 style="text-align: center;">
+                            ارجاع به
+                        </h5>
+                        <h5 style="text-align: center;">
+                             :Refer To
+                        </h5>
+
+
+                    </div>
+                    <div class="col-12  border " style="text-align: right;background-color: #f2f2f2;border: 1px solid black !important;" ngDefaultControl formControlName="Departure"  >
+                        <button type="button" [style.background-color]="i.BackgroundColour" [style.color]="i.color" class="btn  mt-2 ml-2"*ngFor="let i of departureList" (click)="getDeparture(i.Key,i)">
+                            {{i.Value}}
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-outline-primary" [disabled]="refeValid===false" (click)="onSubmit()">
+                ثبت
+            </button>
+            <button type="button" [disabled]="printOK===false" class="btn btn-outline-primary col-1" (click)="send()">
+                ثبت و پایان
+            </button>
+            <button type="button" class="btn btn-outline-primary border ml-1" [disabled]="printOK===false"  printSectionId="print-section" [printStyle]= "{div: {'direction' : 'rtl'}}" [useExistingCss]="true" ngxPrint >پرینت تریاژ</button>
+            <button type="button" class="btn mb-2 btnHover" style="background-color: #3898C5;color: white" [routerLink]="['/teriazh/Patient-Triage']">
+                صفحه قبلی
+                <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+                </svg>
+
+            </button>
+        </div>
+    </div>
+    <!--print-section-->
+    <div class="container" style="float: right;visibility: hidden;display: none" id="print-section" *ngIf="triazhInfo">
+
+
+
+
+        <div class="col-12 text-center">
+            <h4>وزارت بهداشت درمان و آموزش پزشکی</h4>
+            <h5>Ministry of Health & Medical Education</h5>
+        </div>
+        <div class="row ">
+            <div class="col-12 d-flex justify-content-around">
+
+                <h5>دانشگاه علوم پزشکی   </h5>
+                <h5><span *ngIf="hospital">
+            {{hospital['universityName']}}
+        </span></h5>
+                <h5>:University of Medical Science </h5>
+            </div>
+
+        </div>
+        <div class="row ">
+            <div class="col-12  d-flex justify-content-around">
+                <!--<div>-->
+                <!--<span>کد تریاژ</span>-->
+                <!--<span>{{triazhInfo['item']['id']}}</span>-->
+                <!--</div>-->
+                <h5><span *ngIf="hospital">
+            {{hospital['hospitalName']}}
+        </span></h5>
+                <h5>:Medical Center</h5>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row ">
+                <div class="col-12  d-flex justify-content-around">
+                    <div class="col-3 ">
+                        <div class="br" style="width:220px;height:50px; ">
+                            شماره پرونده
+                            <span>
+                            Record No:
+                        </span>
+                        </div>
+
+                    </div>
+                    <div class=" col-6 text-center">
+                        <h5>   فرم تریاژ بخش اورژانس بیمارستان </h5>
+                        <h6 class="text-bold-700">HOSPITAL EMERGENCY DEPARTMENT TRIAGE FORM </h6>
+                    </div>
+                    <div class="col-3 text-left" style="direction: ltr;">
+                        <div style="width:220px;height:50px" class="br text-right">
+                <span class="text-right">
+                    سطح تریاژ بیمار
+               </span>
+                            <span class="font-weight-bold">
+                  {{triazhInfo['item']['triageLevelIS']}}
+               </span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" >
+            <div class="row  col-12 br d-flex justify-content-around" style="direction: rtl;padding: 0;">
+                <div class="col-12 d-flex ">
+                    <div class="col-3 d-flex justify-content-between " style="border-left: 1px solid black;" >
+                        <p>نام خانوادگی</p>
+                        <p class="mt-4">{{triazhInfo['item']['lastName']}}</p>
+                        <p>Family Name</p>
+                    </div>
+                    <div class="col-3 d-flex justify-content-between" style="border-left: 1px solid black;">
+                        <p>نام </p>
+                        <p class="mt-4">
+                            {{triazhInfo['item']['firstName']}}
+                        </p>
+                        <p> Name</p>
+                    </div>
+                    <div class="col-3 d-flex justify-content-between " style="border-left: 1px solid black;">
+                        <div style="text-align: right;">
+                            <p>جنس</p>
+                            <div>
+                                <label for="">مذکر</label>
+                                <input  *ngIf="triazhInfo['item']['gender']==0" type="checkbox" ng-disabled="true" checked />
+
+                                <input *ngIf="triazhInfo['item']['gender'] !=0" type="checkbox" ng-disabled="true"  />
+                                <span>F</span>
+                                <input type="checkbox" >
+                                <label for="" style="margin-right: 30px;">مونث</label>
+                                <input *ngIf="triazhInfo['item']['gender']==1" type="checkbox"  checked />
+
+                                <input *ngIf="triazhInfo['item']['gender'] !=1" type="checkbox"   />
+                                <span>M</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p>Sex</p>
+                        </div>
+                    </div>
+                    <div class="col-3 ">
+                        <div class="d-flex justify-content-between">
+                            <p>تاریخ مراجعه</p>
+                            <!--<p>-->
+                            <!--{{triazhInfo['item']['entranceTime']}}-->
+                            <!--</p>-->
+                            <p>Date of Arrival</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p>ساعت مراجعه</p>
+                            <p>{{triazhInfo['item']['entranceTime']}}</p>
+                            <p>Time of Arrival</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 d-flex justify-content-between " style="border-top: 1px solid black;">
+                    <div class="col-6 d-flex justify-content-between">
+                        <div class="col-6 d-flex justify-content-between " style="border-left: 1px solid black;">
+                            <p>کد ملی </p>
+                            <p>
+                                {{triazhInfo['item']['nationalCode']}}
+                            </p>
+                            <p>National Code</p>
+                        </div>
+                        <div class="col-6 d-flex justify-content-between" style="border-left: 1px solid black;">
+                            <p>تاریخ تولد  </p>
+                            <p>
+                                {{triazhInfo['item']['birthDate']}}
+                            </p>
+                            <p>Date of Birth </p>
+                        </div>
+                    </div>
+                    <div class="col-6 d-flex justify-content-between">
+                        <div>
+                            <p>باردار</p>
+                        </div>
+                        <div>
+                            <label for="">بلی </label>
+                            <input *ngIf="triazhInfo['item']['pregnant']==1" type="checkbox" ng-disabled="true" checked />
+
+                            <input *ngIf="triazhInfo['item']['pregnant'] !=1" type="checkbox" ng-disabled="true"  />                  <span>yes</span>
+                        </div>
+                        <div>
+                            <label for="">خیر </label>
+                            <input *ngIf="triazhInfo['item']['pregnant']==0" type="checkbox" ng-disabled="true" checked />
+
+                            <input *ngIf="triazhInfo['item']['pregnant'] !=0" type="checkbox" ng-disabled="true"  />                    <span>No</span>
+                        </div>
+                        <div>
+                            <label for="">نامعلوم </label>
+                            <input *ngIf="triazhInfo['item']['pregnant']==2" type="checkbox" ng-disabled="true" checked />
+
+                            <input *ngIf="triazhInfo['item']['pregnant'] !=2" type="checkbox" ng-disabled="true"  /><small>unknown</small>
+                        </div>
+                        <div>
+                            <p>Pregnant</p>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="row col-12 br d-flex justify-content-around" style="direction: rtl;padding: 0;border-top: none">
+                <div class="col-12 mt-1 d-flex justify-content-between" style="text-align: right;">
+                    <h6>نحوه مراجعه</h6>
+                    <h6>:Arrival Mode </h6>
+                </div>
+                <div class="col-12 mt-1 " style="text-align: right;">
+                    <span>آمبولانس 115</span>
+                    <input  *ngIf="triazhInfo['item']['arrival_Transport']==2" type="checkbox" ng-disabled="true" checked />
+
+                    <input *ngIf="triazhInfo['item']['arrival_Transport'] !=2" type="checkbox" ng-disabled="true"  />              <span>EMS </span>
+                    <span style="margin-right: 30px;">آمبولانس خصوصی</span>
+                    <input *ngIf="triazhInfo['item']['arrival_Transport']==5" type="checkbox" ng-disabled="true" checked />
+
+                    <input *ngIf="triazhInfo['item']['arrival_Transport'] !=5" type="checkbox" ng-disabled="true"  />              <span>Private Ambulance  </span>
+                    <span style="margin-right: 30px;"> شخصی</span>
+                    <input *ngIf="triazhInfo['item']['arrival_Transport']==4" type="checkbox" ng-disabled="true" checked />
+
+                    <input *ngIf="triazhInfo['item']['arrival_Transport'] !=4" type="checkbox" ng-disabled="true"  />               <span>By Her Own </span>
+                    <span style="margin-right: 30px;">امداد هوایی </span>
+                    <input *ngIf="triazhInfo['item']['arrival_Transport']==6" type="checkbox" ng-disabled="true" checked />
+
+                    <input *ngIf="triazhInfo['item']['arrival_Transport'] !=6" type="checkbox" ng-disabled="true"  />             <span>Air Ambulance   </span>
+                    <span style="margin-right: 30px;"> سایر</span>
+                    <input *ngIf="triazhInfo['item']['arrival_Transport']==8" type="checkbox" ng-disabled="true" checked />
+
+                    <input *ngIf="triazhInfo['item']['arrival_Transport'] !=8" type="checkbox" ng-disabled="true"  />             <span>Other   </span>
+                </div>
+                <div class="col-12 d-flex justify-content-between " style="text-align: right;border-top: 1px solid black;">
+                    <div class="col-4 mt-1">
+                        <p>مراجعه بیمار در 24 ساعت گذشته</p>
+                    </div>
+                    <div class="col-4 d-flex mt-1" style="text-align: right;direction: rtl;padding: 0">
+                        <div class="col-4" >
+                            <span>همین بیمارستان</span>
+                            <input *ngIf="triazhInfo['item']['encounter24HoursAgoItems']==0" type="checkbox"  checked />
+
+                            <input *ngIf="triazhInfo['item']['encounter24HoursAgoItems'] !=0" type="checkbox"   />
+                        </div>
+                        <div class="col-4" style="padding: 0">
+                            <span>بیمارستان دیگر </span>
+                            <input *ngIf="triazhInfo['item']['encounter24HoursAgoItems']==1" type="checkbox"  checked />
+
+                            <input *ngIf="triazhInfo['item']['encounter24HoursAgoItems'] !=1" type="checkbox"   />
+                        </div>
+                        <div class="col-4" style="padding: 0">
+                            <span>خیر</span>
+                            <input *ngIf="triazhInfo['item']['encounter24HoursAgoItems']==2" type="checkbox"  checked />
+
+                            <input *ngIf="triazhInfo['item']['encounter24HoursAgoItems'] !=2" type="checkbox"   />                </div>
+                    </div>
+                    <div class="col-4 mt-1" style="text-align: left ">
+                        <p>  :Patient Presence in ED in 24 Past Hours   </p>
+                    </div>
+
+                </div>
+                <div class="col-12 d-flex justify-content-between"  style="text-align: right">
+                    <div class="col-4" style="padding: 0"></div>
+                    <div class="col-4 d-flex mt-1">
+                        <div class="col-4" style="padding: 0">
+                            <span> This Hospital</span>
+                        </div>
+                        <div class="col-4" style="padding: 0">
+                    <span>
+                        Other Hospital
+                    </span>
+                        </div>
+                        <div class="col-4" style="padding: 0">
+                            <span>No</span>
+                        </div>
+
+                    </div>
+                    <div class="col-4" style="padding: 0"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+
+            <div class="row col-12 br d-flex justify-content-around" style="direction: rtl;">
+
+                <div class="col-12  d-flex justify-content-between " style="text-align: right;">
+                    <div class="d-flex">
+                        <h5 class="font-weight-bold"> شکایت  اصلی بیمار :</h5>
+                        <span *ngIf="triazhInfo['item']['triage_MainDisease']">
+                    <span *ngFor="let i of triazhInfo['item']['triage_MainDisease'] ">
+                        <span *ngFor="let a of mainDiseaseArray">
+                            <span class="font-weight-bold" *ngIf="i.mainDiseaseID==a.id">{{a.mainDiseaseValue}}</span>
+                        </span>
+                </span>
+
+                    <span *ngIf="triazhInfo['item']['triageOtherCasesMainDisease']">
+                        <span class="font-weight-bold"  *ngFor="let i of triazhInfo['item']['triageOtherCasesMainDisease'] ">
+                            {{i.description}}
+                        </span>
+                    </span>
+                </span>
+
+                    </div>
+                    <div>
+                <span>Chief Complaint
+                </span>
+                    </div>
+                </div>
+                <div class="col-12  " style="text-align: right;flex-wrap: nowrap;">
+                    <div class="d-flex justify-content-between" style="padding: 0" >
+                        <div class="col-2" style="padding: 0;" >
+                            <p class="font-weight-bold" > <span>سابقه حساسیت دارویی و غذایی: </span>     </p>
+                        </div>
+                        <div class="col-6 " style="padding: 0" *ngIf="triazhInfo['item']['triageAllergyDrugs'][0]!=null || triazhInfo['item']['triageFoodSensitivity'][0]!=null">
+
+                            <div class="d-flex">
+                                <div class="" style="padding: 0" *ngFor="let i of aleryDrugFinaly">
+                                    <span>{{i}},</span>
+
+                                </div>
+                            </div>
+                            <div class="col-12 " style="padding: 0">
+                                <div class="d-flex" style="padding: 0" *ngIf="triazhInfo['item']['triageFoodSensitivity']">
+                                    <div class="d-flex" *ngFor="let a of triazhInfo['item']['triageFoodSensitivity'] ">
+                                        <div  class="" *ngFor="let i of foodLIst"  style="text-align: right;margin-right: 5px;">
+                                            <span  *ngIf="a.foodSensitivityValue==i.Key">{{i.Value}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2 "  style="padding:0;text-align: left;direction: ltr ">
+                            <p style="font-size: 12px" >History of Drug and Food Allergy</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="container">
+            <div class="col-12 d-flex  justify-content-between" style="direction: rtl;text-align: right;">
+                <div >
+                    <p> بیماران سطح 1 (شرایط تهدید کننده حیات )</p>
+                </div>
+                <div class="" >
+                    <span>..............................................</span>
+                </div>
+                <div >
+
+                    <p>
+                        Triage level 1 (Life threatening situation)
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row col-12 br d-flex justify-content-between" style="direction: rtl;padding: 0;">
+                <div class="col-12 d-flex justify-content-between">
+                    <div>
+                <span>
+                    سطح هوشیاری بیمار:
+
+                </span>
+                    </div>
+                    <div  style="text-align: right;direction: rtl;">
+                <span >
+                    بدون پاسخ
+                </span>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['stateOfAlertIS']==4" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['stateOfAlertIS'] !=4" type="checkbox"   />              </div>
+                    <div>
+                <span>
+                    پاسخ به محرک دردناک
+               </span>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['stateOfAlertIS']==3" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['stateOfAlertIS'] !=3" type="checkbox"   />               </div>
+                    <div>
+                <span>
+                    پاسخ به محرک کلامی
+                </span>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['stateOfAlertIS']==2" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['stateOfAlertIS'] !=2" type="checkbox"   />               </div>
+                    <div>
+                <span>
+                    هوشیار
+               </span>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['stateOfAlertIS']==1" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['stateOfAlertIS'] !=1" type="checkbox"   />
+                    </div>
+
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <div>
+                <span>
+                    سیستم:(AVPU)
+                </span>
+
+                    </div>
+                    <div>
+                <span>
+                   ( Unresponsive (U
+                 </span>
+                    </div>
+                    <div>
+                <span>
+                  (  Response to Pain Stimulus(P
+                 </span>
+                    </div>
+                    <div>
+                <span>
+                 (   Response to Verbal Stimulus(V
+                 </span>
+                    </div>
+                    <div>
+                <span>
+                  (  Alert (A
+
+                 </span>
+                    </div>
+                </div>
+                <div class="col-12 d-flex justify-content-between" style="border-top: 1px solid black;">
+                    <div style="border-left: 1px solid black;text-align: right;">
+                        <label for="">مخاطره راه هوایی</label>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['dangerousRespire']==='True'" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['dangerousRespire'] !='Flase'" type="checkbox"   />
+                        <p>
+                            Airway compromise
+                        </p>
+                    </div>
+                    <div style="border-left: 1px solid black;text-align: right;">
+                        <label for=""> دیسترس شدید تنفسی </label>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['respireDistress']==='True'" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['respireDistress'] !='Flase'" type="checkbox"   />                <p>
+                        Sever Respiratory Distress
+                    </p>
+                    </div>
+                    <div style="border-left: 1px solid black;text-align: right;">
+                        <label for="">  سیانوز</label>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['sianosis']==='True'" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['sianosis'] !='Flase'" type="checkbox"   />                   <p>
+                        Cyanosis
+                    </p>
+                    </div>
+                    <div style="border-left: 1px solid black;text-align: right;">
+                        <label for="">  علایم شوک</label>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['shock']==='True'" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px"  *ngIf="triazhInfo['item']['shock'] !='Flase'" type="checkbox"   />
+                        <p>
+                            Signs of Shock
+                        </p>
+                    </div>
+                    <div>
+                        <label for=""> اشباع اکسیژن کمتر از 90 درصد </label>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['spo2LowerThan90']==='True'" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['spo2LowerThan90'] !='Flase'" type="checkbox"   />
+                        <p>
+                            SpO2 < 90
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-12 mt-1 d-flex  justify-content-between" style="direction: rtl;text-align: right;">
+                <div class="">
+                    <p> بیماران سطح 2 </p>
+                </div>
+                <div class="p0" ><span>..............................................................................................................................</span></div>
+                <div class="p0">
+                    <p>
+                        Triage level 2
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row col-12 br d-flex justify-content-between" style="direction: rtl;padding: 0;">
+
+                <div class="col-12 d-flex justify-content-between" >
+                    <div class="col-3 text-center" style="border-left: 1px solid black;">
+                        <label for="">شرایط پر خطر   </label>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['highDanger']==='True'" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['highDanger'] =='False'" type="checkbox"   />
+                        <p>
+                            High Risk Conditions
+                        </p>
+                    </div>
+                    <div class="col-4 text-center" style="border-left: 1px solid black;">
+                        <label for="">
+                            لتارژی خواب آلودگی اختلال جهت یابی
+
+                        </label>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['lethargy']==='True'" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['lethargy'] =='False'" type="checkbox"   />
+                        <p>
+
+                            lethargy/ confusion/ disorientation
+                        </p>
+                    </div>
+                    <div class="col-3 text-center" style="border-left: 1px solid black;">
+                        <label for="">  دیسترس شدید روان </label>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['highDistress']==='True'" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['highDistress'] =='False'" type="checkbox"   />
+                        <p>
+                            Sever psychiatric Distress
+                        </p>
+                    </div>
+                    <div class="d-flex col-2 justify-content-between">
+                        <div style="margin-top: 10px">
+                            <span for="">   درد شدید</span>
+                            <p>
+                                Sever Pain
+
+                            </p>
+                        </div>
+                        <div  style="margin-top: 10px;position: relative;margin-left: 10px" >
+                            <div style="padding: 0">
+                                <!--{{painPrint}}-->
+                            </div>
+                            <div class="text-bold-700" style="border-bottom: 1px solid;position: static "></div>
+                            <div style="position: static" >10</div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+                <div class="col-12 d-flex " style="border-top: 1px solid;">
+                    <div class="col-6 d-flex justify-content-between ">
+                        <p>سابقه پزشکی </p>
+                        <span>
+                    {{triazhInfo['item']['medicalHistory']}}
+
+                </span>
+                        <p>
+                            Medical history
+                        </p>
+                    </div>
+                    <div class="col-6 d-flex justify-content-between ">
+                        <p>سابقه دارویی </p>
+                        <span>
+                    {{triazhInfo['item']['drugHistory']}}
+
+                </span>
+                        <p>
+                            Drug history
+                        </p>
+                    </div>
+                </div>
+                <div class="col-12 d-flex d-flex justify-content-between " style="border-top: 1px solid;">
+                    <p class="font-weight-bold">علایم حیاتی  </p>
+                    <p class="font-weight-bold">:sign Vital </p>
+                </div>
+                <div class="col-12 d-flex justify-content-between" style="flex-wrap: nowrap;">
+                    <div class="">
+                        <span> فشارخون  :</span>
+                        <span>
+                         {{bp}}
+                </span>
+                        <span>BP <small>mmHg</small></span>
+                    </div>
+                    <div  class="">
+                        <span> تعداد ضربان </span>
+                        <span>   {{pr}} </span>
+                        <span>PR/min</span>
+                    </div>
+                    <div  class="">
+                        <span>تنفس </span>
+                        <span>   {{rr}}    </span>
+                        <span>RR/min</span>
+                    </div>
+                    <div class="">
+                        <span>دمای بدن </span>
+                        <span>  {{t}}   </span>
+                        <span>T</span>
+                    </div>
+                    <div  class="">
+                        <span>درصد اشباع اکسیژن  </span>
+                        <span>  {{spo2}}   </span>
+                        <span>Spo2%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-12" style="padding-top: 0;padding-bottom: 0;direction: rtl;text-align: right;">
+                <p style="padding: 0"> *ثبت عاليم حیاتي برای بیماران سطح 2 با تشخیص پرستار ترياژ و به شرط عدم تاخیر در رسیدگي به بیماران با شرايط پر خطر</p>
+            </div>
+            <div class="col-12 mt-1 d-flex  justify-content-between" style="direction: rtl;text-align: right;">
+                <div class="">
+                    <p> بیماران سطح 3 </p>
+                </div>
+                <div class="p0" ><span>..............................................................................................................................</span></div>
+                <div class="p0">
+                    <p>
+                        Triage level 3
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+
+            <div class="row col-12 br d-flex justify-content-between" style="direction: rtl;padding: 0;">
+                <div class="col-12 d-flex ">
+                    <div class="col-6 d-flex justify-content-between ">
+                        <p> تعداد تسهیلات مورد نظر در بخش اورژانس </p>
+                        <p>
+                            دو مورد بیشتر
+                            <input style="margin-top: 3px" *ngIf="triazhInfo['item']['serviceCountIS']==3" type="checkbox"  checked />
+
+                            <input style="margin-top: 3px" *ngIf="triazhInfo['item']['serviceCountIS'] !=3" type="checkbox"   />
+                        </p>
+                    </div>
+                    <div class="col-6 d-flex justify-content-between ">
+                        <p> TWO & More </p>
+                        <p>
+                            :Number of Required Resources in ED
+                        </p>
+                    </div>
+                </div>
+                <div class="col-12 d-flex d-flex justify-content-between " style="border-top: 1px solid;">
+                    <p class="font-weight-bold">علایم حیاتی  </p>
+                    <p class="font-weight-bold">:sign Vital </p>
+                </div>
+                <div class="col-12 d-flex justify-content-between" style="flex-wrap: nowrap;">
+                    <div class="">
+                        <span>:فشارخون</span>
+                        <span>  {{bp}}  </span>
+                        <span>BP <small>mmHg</small></span>
+                    </div>
+                    <div  class="">
+                        <span>تعداد ضربان</span>
+                        <span>  {{pr}}    </span>
+                        <span>PR/min</span>
+                    </div>
+                    <div  class="">
+                        <span>:تنفس</span>
+                        <span>  {{rr}}   </span>
+                        <span>RR/min</span>
+                    </div>
+                    <div class="">
+                        <span>:دمای بدن</span>
+                        <span>  {{t}}   </span>
+                        <span>T</span>
+                    </div>
+                    <div  class="">
+                        <span>:درصد اشباع اکسیژن </span>
+                        <span>  {{spo2}}   </span>
+                        <span>Spo2%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-12 mt-1 d-flex  justify-content-between" style="direction: rtl;text-align: right;">
+                <div class="">
+                    <p> بیماران سطح 4 و 5 </p>
+                </div>
+                <div class="p0" ><span>..............................................................................................................................</span></div>
+                <div class="p0">
+                    <p>
+                        Triage level 4&5
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row col-12 br d-flex justify-content-between" style="direction: rtl;">
+                <div class="col-12 d-flex ">
+                    <div class="col-6 d-flex justify-content-between ">
+                        <p> تعداد تسهیلات مورد نظر در بخش اورژانس </p>
+                        <p>
+                            یک مورد
+                            <input style="margin-top: 3px" *ngIf="triazhInfo['item']['serviceCountIS']==2" type="checkbox"  checked />
+
+                            <input style="margin-top: 3px" *ngIf="triazhInfo['item']['serviceCountIS'] !=2" type="checkbox"   />                     </p>
+                        <p>One item</p>
+                    </div>
+                    <div class="col-6 d-flex justify-content-between ">
+                        <p> هیچ</p>
+                        <p>
+                            None
+                            <input style="margin-top: 3px" *ngIf="triazhInfo['item']['serviceCountIS']==1" type="checkbox"  checked />
+
+                            <input style="margin-top: 3px" *ngIf="triazhInfo['item']['serviceCountIS'] !=1" type="checkbox"   />
+                        </p>
+                        <p>: ED in Resources Required of Number</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container" >
+            <div class="row col-12 br d-flex justify-content-between" style="direction: rtl;padding: 0;">
+                <div class="col-12 d-flex justify-content-between ">
+                    <p> سطح تریاژ بیمار        </p>
+                    <p>
+                        5
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['triageLevelIS']==5" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['triageLevelIS'] !=5" type="checkbox"   />                     </p>
+                    <p>
+                        4
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['triageLevelIS']==4" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['triageLevelIS'] !=4" type="checkbox"   />
+                    </p>
+                    <p>
+                        3
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['triageLevelIS']==3" type="checkbox"  checked />
+
+                        <input  style="margin-top: 3px"*ngIf="triazhInfo['item']['triageLevelIS'] !=3" type="checkbox"   />
+                    </p>
+                    <p>
+                        2
+                        <input *ngIf="triazhInfo['item']['triageLevelIS']==2" type="checkbox"  checked />
+
+                        <input *ngIf="triazhInfo['item']['triageLevelIS'] !=2" type="checkbox"   />
+                    </p>
+                    <p>
+                        1
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['triageLevelIS']==1" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['triageLevelIS'] !=1" type="checkbox"   />
+                    </p>
+                    <p>
+                        Patient Triage level:
+                    </p>
+
+
+                </div>
+                <div class="col-12 d-flex d-flex justify-content-between " style="border-top: 1px solid;">
+                    <p class="font-weight-bold">جداسازی بیمار و احتیاطات بیشتر کنترل عفونت   </p>
+                    <p class="font-weight-bold">تماسی
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['separationByInfection']==0" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['separationByInfection'] !=0" type="checkbox"   />                </p>
+                    <p class="font-weight-bold">قطره ای
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['separationByInfection']==1" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['separationByInfection'] !=1" type="checkbox"   />
+                    </p>
+                    <p class="font-weight-bold">تنفسی
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['separationByInfection']==2" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['separationByInfection'] !=2" type="checkbox"   />
+                    </p>
+                    <p class="font-weight-bold">نیاز ندارد
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['separationByInfection']==3" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['separationByInfection'] !=3" type="checkbox"   />
+                    </p>
+                </div>
+
+                <div class="col-12 d-flex d-flex justify-content-between ">
+                    <p class="font-weight-bold">Patient Isolation and More Infection Control Precautions       </p>
+                    <p class="font-weight-bold">Contact
+                    </p>
+                    <p class="font-weight-bold">Droplet
+                    </p>
+                    <p class="font-weight-bold">Airborne
+                    </p>
+                    <p class="font-weight-bold">No Need to Isolation
+                    </p>
+                </div>
+                <div class="col-12 d-flex d-flex justify-content-between " style="border-top: 1px solid black;">
+                    <div>
+                        <p class="font-weight-bold">ارجاع به</p>
+                    </div>
+                    <div>
+                        <label for="">سرپایی</label>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['departure']==3" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['departure'] !=3" type="checkbox"   />
+                        <span>Fast track</span>
+                    </div>
+                    <div>
+                        <label for="">احیا</label>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['departure']==4" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['departure'] !=4" type="checkbox"   />
+                        <span> CPR</span>
+                    </div>
+                    <div>
+                        <label for="">فضای بستری</label>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['departure']==1" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['departure'] !=1" type="checkbox"   />
+                        <span>Inpatient Area </span>
+                    </div>
+                    <div>
+                        <label for="">سایر...</label>
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['departure']==8" type="checkbox"  checked />
+
+                        <input style="margin-top: 3px" *ngIf="triazhInfo['item']['departure'] !=8" type="checkbox"   />
+                        <span>Other </span>
+                    </div>
+
+                    <div>
+                        <p class="font-weight-bold">  :Refer to </p>
+                    </div>
+
+                </div>
+                <div class="col-12 d-flex justify-content-between" style="border-top: 1px solid black;">
+                    <div class="col-6 d-flex">
+                        <p>ساعت و تاریخ ارجاع</p>
+                        <span>
+                {{triazhInfo['item']['exitTime']}}
+            </span>
+                    </div>
+                    <div class="col-6 d-flex" *ngIf="pracInfo">
+                        <p> نام و نام خانوادگی مهر و امضای پرستار تریاژ  </p>
+                        <span *ngIf="pracInfo['item']">{{pracInfo['item']['firstName']}}</span> <span class="mx-1" *ngIf="pracInfo['item']">{{pracInfo['item']['lastName']}}</span>
+                    </div>
+                </div>
+                <div class="col-12 d-flex justify-content-between" >
+                    <div class="col-6 d-flex">
+                        <p> Date & Time of Referral:  </p>
+                        <span></span>
+                    </div>
+                    <div class="col-6 d-flex">
+                        <p>  Triage Nurse’s Name/Signature/Stamp     </p>
+                        <span>.........</span>
+                    </div>
+                </div>
+                <div class="col-12 d-flex justify-content-between" style="border-top: 1px solid black;">
+                    <p>توضیحات
+                        <span>......</span>
+                    </p>
+                    <p>
+        <span>
+            .......
+        </span>
+                        Description
+
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 d-flex justify-content-between" >
+                <p>این صفحه فرم صرفا توسط پرستار ترياژ تكمیل مي گردد</p>
+
+                <p>IR.MOHHIM-E01-2.0-9910</p>
+
+
+
+            </div>
+        </div>
+        <br>
+        <!-- page2 -->
+        <div class="container" style="margin-top: 50px;">
+            <div class="row col-12 br mt-2 d-flex justify-content-between" style="direction: rtl;padding: 0;">
+                <div class="col-12 d-flex justify-content-between">
+                    <p>
+                        شرح حال و دستورات پزشک
+                    </p>
+                    <p>
+                        :Medical history & Physician Orders
+                    </p>
+                </div>
+                <div class="col-12">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <p style="text-align: right;">{{triazhInfo['item']['practitionerComment']}}</p>
+                </div>
+
+                <div class="col-12">
+                    <div class="d-flex justify-content-between roundBorder   ">
+                        <p>تشخیص...</p>
+                        <p>
+                            Diagnosis....
+                        </p>
+                    </div>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <div class="col-6 d-flex justify-content-between ">
+                        <p>تاریخ و ساعت ویزیت </p>
+                        <p> ........   </p>
+                        <p>Date & Time Of Visit</p>
+
+                    </div>
+                    <div class="col-6 d-flex justify-content-between " style="flex-wrap: nowrap;">
+                        <p style="font-size: 10px;"> نام و نام خانوادگی مهر و امضای پزشک   </p>
+                        <p> ...   </p>
+                        <p style="font-size: 10px;">Physician's Name/Signature/Stamp</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row col-12 br d-flex justify-content-between" style="direction: rtl;padding: 0;">
+                <div class="col-12 d-flex justify-content-between">
+                    <p>
+                        گزارش پرستاری:
+                    </p>
+                    <p>
+                        :  Nursing Report
+                    </p>
+                </div>
+
+                <div class="col-12" style="text-align: right; direction: rtl;">
+                    <p>
+                        بیمار با نام {{name}}  و نام خانوادگی {{lastName}} با سطح تریاژپنج   و با وسیله    {{transporterValue}}وبا شکایت اصلی    <span *ngFor="let i of mainVAlueArray">{{i}},</span>,<span *ngFor="let a of eOtherCasesMainDisease">{{a.description}}</span>          <span *ngIf="aleryDrugFinaly.length>0" > و حساسیت دارویی</span><span *ngFor="let i of aleryDrugFinaly">{{i}}</span> <span *ngIf="foodAllerguValue.length>0">و حساسیت غذایی</span>    <span *ngFor="let i of foodAllerguValue">{{i}},</span>  و در ساعت {{Time}}
+                        به اوراژانس منتقل شد.
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <!-- <p style="text-align: right;">{{triazhInfo['item']['nurseComment']}} </p> -->
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <div class="col-6 d-flex justify-content-between ">
+                        <p>تاریخ و ساعت گزارش </p>
+                        <p> ........   </p>
+                        <p> Report Date & Time:</p>
+
+                    </div>
+                    <div class="col-6 d-flex justify-content-between " style="flex-wrap: nowrap;" *ngIf="pracInfo">
+                        <p style="font-size: 10px;"> نام و نام خانوادگی مهر و امضای پرستار   </p>
+                        <p *ngIf="pracInfo['item']">{{pracInfo['item']['firstName']}}  {{pracInfo['item']['lastName']}}    </p>
+                        <p style="font-size: 10px;">Nurse's Name/Signature/Stamp</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row col-12 br d-flex justify-content-between" style="direction: rtl;padding: 0;">
+                <div class="col-12  " style="text-align: right;">
+                    <p>
+                        وضعیت نهایی بیمار :
+                    </p>
+
+                </div>
+                <div class="col-12 d-flex" style="direction: rtl;text-align: right;">
+                    <div class="col-6">
+                        <p>بیمار در تاریخ<span>........</span> و ساعت <span>.......</span></p>
+                    </div>
+                    <div class="col-6">
+                        <div>
+                            <input type="checkbox" name="" id="">
+                            <label for="">مرخص گردید</label>
+
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="" id="">
+                            <label for="">در بخش .......... بستری گردید </label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="" id="">
+                            <label for="">به درمانگاه  .......... ارجاع شد </label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="" id="">
+                            <label for="">به بیمارستان  .......... اعزام گردید </label>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="row col-12 br d-flex justify-content-between" style="direction: rtl;padding: 0;">
+                <div class="col-12  " style="text-align: center;">
+                    <p>
+                        اجازه معالجه و عمل جراحی (بجز ویزیت)
+                    </p>
+
+                </div>
+                <div class="col-12 " style="direction: rtl;text-align: right;">
+                    <p>
+                        اینجانب ............. بیمار/ساکن......... اجازه میدهم کزشک یا شزشان بیمارستان ...............
+                        هرنوع معالجه و در صورت لزوم عمل جراحی یا انتقال خون که صلاح بداند در مورد اینجانب/بیمار اینجانب به مورد اجرا گذراند و بدینوسیله برایت پزشکان و
+                        کارکنان این بیمارستان را از کلیه عوارض احتمالی اقدامات فوق که در مورد اینجانب/بیمار اینجانب انجام دهند اعلام میدارم.
+                    </p>
+                </div>
+                <div class="col-12" style="direction: rtl; text-align: right;">
+                    <p>
+                        نام و امضای بیمار/همراه بیمار..........
+                    </p>
+                </div>
+                <div class="col-12" style="direction: rtl; text-align: right;">
+                    <p>
+                        نام شاهد1............  تاریخ........ امضا.........
+                    </p>
+                    <p>
+                        نام شاهد2............  تاریخ........ امضا.........
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="container">
+            <div class="row col-12 br d-flex justify-content-between" style="direction: rtl;padding: 0;">
+                <div class="col-12  " style="text-align: center;">
+                    <p>
+                        ترخیص با میل شخصی
+                    </p>
+
+                </div>
+                <div class="col-12 " style="direction: rtl;text-align: right;">
+                    <p>
+                        اینجانب ............. با میل شخصی خود بر خلاف صلاحدید و توصیه پزشکان مسئول بیمارستان ............؛این مرکز را با در نظر داشتن عواقب
+                        و خطرات احتمالی ترک می نمایم و اعلام میدارم که هیچ مسئولیتی متوجه مسئولان پزشکان و کارکنان این مرکز نخواهد بود.
+                    </p>
+                </div>
+                <div class="col-12  d-flex justify-content-between " style="direction: rtl; text-align: right;">
+                    <p>
+                        نام و امضای بیمار/همراه بیمار..........
+                    </p>
+                    <p>
+                        نام و امضای یکی از بستگان درجه اول بیمار...........
+                    </p>
+                </div>
+                <div class="col-12" style="direction: rtl; text-align: right;">
+                    <p>
+                        نام شاهد1............  تاریخ........ امضا.........
+                    </p>
+                    <p>
+                        نام شاهد2............  تاریخ........ امضا.........
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</form>

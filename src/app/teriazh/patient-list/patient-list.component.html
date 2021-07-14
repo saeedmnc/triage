@@ -1,0 +1,127 @@
+<style>
+    /*table th {*/
+        /*background-color: #48d9fa;*/
+
+    /*}*/
+    table{
+        text-align: center;
+    }
+    .br{
+       border:  2px solid black;
+    }
+    .p0{
+        padding: 0 !important
+    }
+    .br div{
+        padding: 0;
+    }
+    p,span,label,h4,h3,h5{
+        font-weight: bold;
+    }
+    .roundBorder{
+        border: 2px solid gray;
+        border-radius: 10px;
+    }
+
+    .red{
+        color: white;!important;
+        background-color: #990000;
+        background-image: linear-gradient(147deg, #990000 0%, #ff0000 74%);
+    }
+    .Orange{
+        background-color: #f5d020;
+        background-image: linear-gradient(315deg, #f5d020 0%, #f53803 74%);
+        color: white;!important;
+    }
+    .Yellow{
+        background-color: #fbb034;
+        background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 74%);
+    }
+    .green{
+        background-color: #d3d3d3;
+        background-image: linear-gradient(315deg, #d3d3d3 0%, #2bc96d 74%);
+
+        color: white;!important;
+    }
+    .blue{
+        background-color: #06bcfb;
+        background-image: linear-gradient(315deg, #06bcfb 0%, #4884ee 74%);
+        color: white;!important;
+    }
+
+</style>
+<div class="container-fluid">
+   
+    <div *ngIf="List">
+        <table *ngIf="List.length>0"  class="table table-bordered table-hover" style="font-size: 15px">
+            <thead style="background-color: #63a4ff;
+background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);" >
+            <tr>
+                <th scope="col" >ردیف</th>
+                <th scope="col">کد تریاژ</th>
+                <th scope="col">نام و نام خانوادگی بیمار </th>
+                <th scope="col">تاریخ تراژ </th>
+                <th scope="col">وضعیت تریاژ </th>
+                <th scope="col">تاریخ تولد </th>
+                <th scope="col">سطح تریاژ </th>
+                <th scope="col">نحوه مراجعه</th>
+                <th scope="col">تریاژ کننده</th>
+                <th scope="col">نحوه خروج</th>
+                <th scope="col">تاریخ پایان تریاژ </th>
+                <th scope="col"> شتاسه مراجعه متصل </th>
+            </tr>
+            </thead>
+            <tbody style="font-family: iransans" *ngFor="let i of List;let y=index " >
+            <tr (dblclick)="selectPatient(i.id)" style="cursor: pointer">
+                <td scope="row">{{y+1}}</td>
+                <td>{{i.id}}</td>
+                <td> {{i.firstName}} {{i.lastName}} </td>
+                <td>{{i.entranceTime}}</td>
+                <td><span *ngIf="i.exitTime==null">باز</span>
+                    <span *ngIf="i.exitTime!=null">بسته</span>
+                </td>
+                <td  style="font-family: iransans">{{i.birthDate}}</td>
+                <td class="mt-2" [ngClass]="{'red':i.triageLevelIS==='1','Orange':i.triageLevelIS==='2','Yellow':i.triageLevelIS==='3','blue':i.triageLevelIS==='4','green':i.triageLevelIS==='5'}" >{{i.triageLevelIS}}</td>
+                <td><span *ngFor="let x of transporterList">
+                <span *ngIf="x.Key==i.arrival_Transport">{{x.Value}}</span>
+            </span></td>
+                <td>{{i.triagePracName}}</td>
+                <td><span *ngFor="let x of depratureList">
+                <span  *ngIf="x.Key==i.departure">{{x.Value}}</span>
+            </span></td>
+                <td>{{i.resultTime}}</td>
+                <td>{{i.encounterID}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="List">
+        <div class="col-4 p-3" *ngIf="List.length == 0" style="border: 1px solid;position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);-webkit-box-shadow: 1px -3px 13px -2px rgba(0,0,0,0.75);
+box-shadow: 1px -3px 13px -2px rgba(0,0,0,0.75);color: white;background-color: #2234ae;
+background-image: linear-gradient(315deg, #2234ae 0%, #191714 74%);">
+            <h4 style="font-family: iransans;text-align: center" >هیچ بیماری امروز تریاژ نشده است </h4>
+            <div class="d-flex justify-content-center">
+                <button [routerLink]="['/teriazh/Patient-Triage']" style="font-family: iransans;color: white!important;" class="btn btn-lg btn-primary mt-2">تریاژ جدید</button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="row mt-1" *ngIf="List" >
+        <div class="col-12" style="text-align: right" *ngIf="List.length>0">
+            <button type="button" class="btn btn-outline-primary border ml-1"  [routerLink]="['/teriazh/Patient-Triage']" >تریاژ جدید </button>
+            <!--<button type="button" class="btn btn-outline-primary border ml-1" >ویرایش تریاژ </button>-->
+            <!-- <button type="button" class="btn btn-outline-primary border ml-1"   printSectionId="print-section" [printStyle]= "{div: {'direction' : 'rtl'}}" [useExistingCss]="true" ngxPrint >پرینت تریاژ</button> -->
+            <button type="button" class="btn btn-outline-primary border ml-1"   (click)="reload()" >  جستجو</button>
+        </div>
+    </div>
+    <div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,11 @@
+.not-active{
+    border : 1px solid black;
+    padding : 1rem;
+    cursor: pointer;
+  }
+  .active{
+    border : 1px solid black;
+    padding : 1rem;
+    background-color: aqua;
+    cursor: pointer;
+  }

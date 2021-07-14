@@ -1,0 +1,106 @@
+{
+  "caseWorkerID": "1",
+  "caseWorkerDetails": {
+    "caseWorkerDetailsID": "",
+    "martialStatus": "",
+    "levelOfEducation": "",
+    "job": "",
+    "countOfChild": "",
+    "isPatientAttendant": "",
+    "patientAttendantFullName": "",
+    "patientAttendantRelation": "",
+    "patientAttendantPhone": "",
+    "howToReferCaseWorker": "",
+    "dateDone": "",
+    "insuranceCoverage": "",
+    "effectiveCompanionPresence": "",
+    "exclusiveDescription": "",
+    "caseWorkerLevel": "",
+    "totalPoint": "",
+    "caseWorkerID": "",
+    "interventionDescription": "",
+    "finalResultOfIntervention": "",
+    "needForEconomicSupport": "",
+    "caseWorkerOpinionPrecent": ,
+    "caseWorkerOpinionDescription": "",
+    "finalEconomicSupportPercent": ,
+    "dischargeRecommendations": "",
+    "needToFollow": "",
+    "needPlan": "",
+    "ministryOfHealthPercent":,
+    "ministryOfHealthPrice": ,
+    "governmentSupportInstitutionsPercent": ,
+    "governmentSupportInstitutionsPrice": ,
+    "noneGovernmentSupportInstitutionsPercent": ,
+    "noneGovernmentSupportInstitutionsPrice": ,
+    "hospitalCharityPercent": ,
+    "hospitalCharityPrice": ,
+    "caseWorkerBringPercent": ,
+    "caseWorkerBringPrice":
+  },
+  "caseWorkerHighRiskGroup": [
+    {
+      "caseWorkerHighRiskGroupID": "",
+      "highRiskGroup": "",
+      "caseWorkerID": ""
+    }
+  ],
+  "caseWorkerTargetGroup": [
+    {
+      "caseWorkerTargetGroupID": "",
+      "targetGroup1": "",
+      "targetGroup2": "",
+      "groupCode": "",
+      "groupPercent": ,
+      "caseWorkerID": ""
+    }
+  ],
+  "caseWorkerRand": [
+    {
+      "caseWorkerRandID": "",
+      "psychologicalStatus": "",
+      "economicStatus": "",
+      "socialDysfunction": "",
+      "legalIssues": "",
+      "fewDescription": "",
+      "totalDescription": "",
+      "caseWorkerID": "",
+      "caseWorkerHighRiskGroupForRand": [
+        {
+          "caseWorkerHighRiskGroupForRandID": "",
+          "highRiskGroup": "",
+          "caseWorkerRandID": ""
+        }
+      ],
+      "caseWorkerSupportNetwork": [
+        {
+          "caseWorkerSupportNetworkID": "",
+          "supportNetwork": "",
+          "caseWorkerRandID": ""
+        }
+      ]
+    }
+  ],
+  "caseWorkerInterventionGroup": [
+    {
+      "caseWorkerInterventionGroupID": "",
+      "interventionDate": "",
+      "interventionDescription": "",
+      "caseWorkerID": "",
+      "caseWorkerInterventionTitle": [
+        {
+          "caseWorkerInterventionTitleID": "",
+          "interventionTitle": "",
+          "caseWorkerInterventionGroupID": ""
+        }
+      ]
+    }
+  ],
+  "caseWorkerActions": [
+    {
+      "caseWorkerActionsID": "",
+      "caseWorkerAction": "",
+      "caseWorkerID": ""
+    }
+  ]
+}

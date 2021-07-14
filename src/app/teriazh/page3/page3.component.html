@@ -1,0 +1,159 @@
+<style>
+    .btnW{
+        padding-right:20px !important;
+        padding-left: 20px !important;
+        padding-top: 3px!important;
+        padding-bottom: 3px!important;
+        border: 1px solid;
+        font-size:14px;
+        background-color:#fcb103 ;
+        color: white;
+
+    }
+
+
+</style>
+<form action="">
+
+    <div class="container-fluid">
+       <div class="row mt-1">
+           <div class="col-12" style="text-align: right">
+               <label for="" >کد:</label>
+               <input type="text"style="margin-right: 19px" >
+               <label for="" style="margin-right: 100px">توضیح</label>
+               <input type="text">
+               <button class="btn btnW"  style="margin-right: 100px">جستجو</button>
+           </div>
+           <div class="col-12" style="text-align: right">
+               <label for="" >عنوان</label>
+               <input type="text" >
+           </div>
+       </div>
+        <div class="row mt-1">
+            <div class="col-12 d-flex">
+                <div class="col-9">
+                    <table class="table table-bordered" style="text-align: right">
+                        <thead style="padding: 0!important;">
+                        <tr>
+                            <th scope="col">انتخاب</th>
+                            <th scope="col">کد</th>
+                            <th scope="col">مقدار</th>
+                            <th scope="col">توضیح</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row"><input type="checkbox"></th>
+                            <td>1</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox"></th>
+                            <td>2</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox"></th>
+                            <td>3</td>
+                            <td> </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox"></th>
+                            <td>3</td>
+                            <td> </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox"></th>
+                            <td>4</td>
+                            <td> </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox"></th>
+                            <td>5</td>
+                            <td> </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox"></th>
+                            <td>6</td>
+                            <td> </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox"></th>
+                            <td>7</td>
+                            <td> </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox"></th>
+                            <td>8</td>
+                            <td> </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox"></th>
+                            <td>9</td>
+                            <td> </td>
+                            <td></td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-3">
+                    <table class="table table-bordered" style="text-align: right">
+                        <thead>
+                        <tr>
+                            <th scope="col">انتخاب شده</th>
+                            <th scope="col">کد</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1" >
+            <button class="btn btnW" style="text-align: left" disabled> تایید</button>
+            <button class="btn btnW" style="text-align: left" >انصراف</button>
+
+        </div>
+
+
+    </div>
+
+    <input type="text" class="form-control"  [(ngModel)]="searchText"  [ngModelOptions]="{standalone: true}" >
+    <div  *ngFor=" let i of options | search:searchText  ">
+        {{i.admissionKindValue}}
+    </div>
+</form>
+
+{{options | json}}
+
+<!-- <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Number</mat-label>
+      <input type="text"
+             placeholder="Pick one"
+             aria-label="Number"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form> -->
+ 
+
+{{options| json}}

@@ -1,0 +1,359 @@
+<style>
+      .line{
+    height: 1px;
+        background-color: #fcb103
+    }
+    .btnCustome{
+        padding-right:8px !important;
+        padding-left: 8px !important;
+        padding-top: 3px!important;
+        padding-bottom: 3px!important;
+        border: 1px solid;
+        font-size:14px;
+        background-color:#fcb103 ;
+        color: white;
+    }
+    .btnW{
+        padding-right:20px !important;
+        padding-left: 20px !important;
+        padding-top: 3px!important;
+        padding-bottom: 3px!important;
+        border: 1px solid;
+        font-size:14px;
+        background-color:#fcb103 ;
+        color: white;
+
+    }
+    .pos{
+        top: 0;
+        left: 0;
+        transform: translateY(-50%);
+        background-color: #F5F7FA;
+
+    }
+    .Customborder{
+        border: 2px solid #009da0 ;
+    }
+    .form-group{
+        margin-bottom: 1px !important;
+    } 
+    .marT{
+        margin-top: 15px;
+    }
+    .header{
+        background-color: #063d78;
+        color: white;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .hide{ 
+        display: none;
+    }
+    .checkSize{
+        width: 20px;
+        height: 20px;
+    }
+    /*table th {*/
+        /*background-color: #48d9fa;*/
+
+    /*}*/
+      thead{
+          background-color: #63a4ff;
+          background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
+      }
+
+    table{
+        text-align: center;
+    }
+    .inValidBorder{
+        border:1px solid red;
+    }
+      .red{
+          color: white;!important;
+          background-color: #990000;
+          background-image: linear-gradient(147deg, #990000 0%, #ff0000 74%);
+      }
+      .Orange{
+          background-color: #f5d020;
+          background-image: linear-gradient(315deg, #f5d020 0%, #f53803 74%);
+          color: white;!important;
+      }
+      .Yellow{
+          background-color: #fbb034;
+          background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 74%);
+      }
+      .green{
+          background-color: #d3d3d3;
+          background-image: linear-gradient(315deg, #d3d3d3 0%, #2bc96d 74%);
+
+          color: white;!important;
+      }
+      .blue{
+          background-color: #06bcfb;
+          background-image: linear-gradient(315deg, #06bcfb 0%, #4884ee 74%);
+          color: white;!important;
+      }
+</style>
+
+    <div class="container-fluid">
+        <div class="row mt-2">
+
+                <table class="table table-bordered table-hover" style="font-size: 15px;font-family: iransans">
+                    <thead >
+                    <tr>
+                        <th scope="col">ردیف</th>
+                        <th scope="col">کد تریاژ</th>
+                        <th scope="col">نام  </th>
+                        <th scope="col">  نام خانوادگی  </th>
+                        <th scope="col">تاریخ تراژ </th>
+                        <th scope="col">وضعیت تریاژ </th>
+                        <th scope="col">تاریخ تولد </th>
+                        <th scope="col">سطح تریاژ </th>
+                        <th scope="col">نحوه مراجعه</th>
+                        <th scope="col">تریاژ کننده</th>
+                        <th scope="col">نحوه خروج</th>
+                        <th scope="col">تاریخ پایان تریاژ </th>
+                        <th scope="col"> شتاسه مراجعه متصل </th>
+                    </tr>
+
+                    </thead>
+                    <tbody  *ngFor="let item of result;let i =index">
+                    <tr (dblclick)=getDatail(item.id)>
+                        <td scope="row">{{i+1}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.firstName}}   </td>
+                        <td> {{item.lastName}} </td>
+                        <td>{{item.entranceTime}}</td>
+                        <td><span *ngIf="item.exitTime==null">باز</span>
+                            <span *ngIf="item.exitTime!=null">بسته</span>
+                        </td>
+                        <td>{{item.birthDate}}</td>
+                        <td [ngClass]="{'red':item.triageLevelIS==='1','Orange':item.triageLevelIS==='2','Yellow':item.triageLevelIS==='3','blue':item.triageLevelIS==='4','green':item.triageLevelIS==='5'}">{{item.triageLevelIS}}</td>
+                        <td><span *ngFor="let x of transportList">
+                        <span *ngIf="x.Key==item.arrival_Transport">{{x.Value}}</span>
+                    </span></td>
+                        <td>{{item.triagePracName}}</td>
+                        <td>  <span *ngFor="let x of DepartureList"><span *ngIf="x.Key==item.departure">{{x.Value}}</span></span></td>
+                        <td>{{item.resultTime}}</td>
+                        <td>{{item.encounterID}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+        <ng-template #content let-c="close" let-d="dismiss" style="direction: rtl !important;font-family: iransans">
+            <form action="" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                <div class="modal-header " style="direction: rtl; background-color: #63a4ff;
+background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);" >
+                    <h4 class="modal-title white" >جستجو </h4>
+                  </div>
+                  <div class="modal-body" id="kbModal-body" style="font-family: iransans">
+                      <div class="row mt-1">
+                              <div class="col-12 form-inline mb-2"style="direction: rtl;font-size: 20px;font-family: iransans"  >
+                                  <label for="" class="ml-2 mt-1 text-bold-700" style="font-family: iransans" >کد تریاژ</label>
+                                  <input type="text" class="form-control " formControlName="teriazhID">
+                              </div>
+                          <div class="col-12  " style="padding: 0!important;margin: 0!important;">
+                              <div class="header">
+                                  <h5 style="text-align: center;">
+                                    مشخصات فردی بیمار
+                                </h5>
+                          </div>
+                          </div>
+                      </div>
+                      <div class="row mt-1">
+                          <div class="col-12" style="text-align: right;direction: rtl;">
+                                  <div class="form-inline">
+                                      <div class="form-inline col-6">
+                                          <label for="name"   style="font-size: 15px;" class="ml-1 font-weight-bold"> نام بیمار</label>
+                                          <input type="text" id="name" class="form-control" name="name" formControlName="firstName">
+                                      </div>
+                                      <div class=" form-inline col-6">
+                                          <label for="name" class="ml-1 font-weight-bold" style="font-size: 15px;"> نام خانوادگی</label>
+                                          <input type="text" id="name" class="form-control"  formControlName="LastName" >                             
+                                      </div>
+                                  </div>
+                          </div>
+                      </div>
+                      <div class="row mt-1">
+                          <div class="col-12 " style="direction:rtl">
+                              <div class="form-inline  ">
+                                  <div class=" form-inline col-6 ">
+                                      <label for="" class="font-weight-bold" style="font-size: 15px;">از سن بیمار </label>
+                                      <input type="text" class="ml-1" style="width: 60px"  formControlName="fromAge">
+                                      <select name="" id="">
+                                          <option value="" *ngFor="let i of ageTypeLst">{{i.Value}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="form-inline col-6   ">
+                                      <label for="" class="font-weight-bold"  style="font-size: 15px;">تا سن بیمار </label>
+                                      <input type="text" class="ml-1" style="width: 60px" formControlName="toAge">
+                                      <select name="" id="">
+                                          <option value=""*ngFor="let i of ageTypeLst">{{i.Value}}</option>
+                                      </select>
+                                 
+                                     
+                                  </div>
+                                  </div>
+                          </div>
+                      </div>
+                      <div class="row mt-1">
+                          <div class="col-12 " style="padding: 0!important;margin: 0!important;">
+                              <div class="header">
+                                  <h5 style="text-align: center;">
+                                    مشخصات مراجعه به تریاژ 
+                                </h5>
+                          </div>
+                          </div>
+                      </div>
+                      <div class="row mt-1">
+                          <div class="col-12 d-flex" style="direction: rtl;">
+                              <div class="col-6">
+                                  <div class="col-12" style="display:block;">
+                                      <label for="" class="ml-1 font-weight-bold" style="font-size: 15px;text-align: right;display: block;">از تاریخ تریاژ</label>
+          
+                                  </div>
+                                  <div class="col-10 "  >
+                                      <div [ngClass]="{'inValidBorder': dateObject1===''}">
+                                        <dp-date-picker
+                                       
+                                        dir="rtl"
+                                        formControlName="fromDate"
+                                        mode="day"
+                                        placeholder="تاریخ"
+                                        [(ngModel)]="dateObject1"
+                                        theme="dp-material">
+                                </dp-date-picker>
+                                      </div>
+                                 
+                                  </div>
+                               
+                              </div>
+                              <div class="col-6">
+                                  <div class="col-12">
+                                      <label for="" class="ml-1 font-weight-bold" style="font-size: 15px;display: block;text-align: right;">تا تاریخ تریاژ</label>
+          
+                                  </div>
+                                  <div class="col-10">
+                                      <div [ngClass]="{'inValidBorder': dateObject===''}" >
+                                        <dp-date-picker
+                                        dir="rtl"
+                                        formControlName="toDate"
+                                        [(ngModel)]="dateObject"
+                                        mode="day"
+                                        placeholder="تاریخ"
+                                        theme="dp-material">
+                                </dp-date-picker>
+                                      </div>
+                                 
+                                  </div>
+                                
+                              </div>
+                          </div>  
+                      </div>
+                  
+                      <div class="row mt-1">
+                          <div class="col-12 d-flex" style="direction: rtl;">
+                              <div class="col-6 " >
+                                  <div class="col-12" style="direction: rtl;text-align: right;"> 
+                                      <label for="" class="ml-1 font-weight-bold" style="font-size: 15px;">نحوه ورود   </label>
+                                  </div>
+                                 
+                                  <div class="col-10">
+                                      <select name="" id="" class="form-control"  formControlName="entrnaceType">
+                                          
+                                          <option [value]="i.Key" *ngFor="let i of EntranceTypeList"  >{{i.Value}}</option>
+                                          
+                                     </select>
+                                  </div>
+                           
+                              </div>
+                              <div class="col-6 " >
+                                  <div class="col-12" style="direction: rtl; text-align: right;"> 
+                                      <label for="" class="ml-1 font-weight-bold " style="font-size: 15px;">نحوه خروج   </label>
+                                  </div>
+                                  <div class="col-10">
+                                      <select name="" id="" class="form-control" formControlName="departure">
+                                          <option *ngFor='let i of DepartureList' [value]="i.Key">   
+                                            {{i.Value}}
+                                          </option>
+                             
+                                     </select>
+                                  </div>
+                           
+                              </div>
+                          </div>  
+                      </div>
+                      <div class="row mt-1">
+                          <div class="col-12 d-flex" style="direction: rtl;">
+                              <div class="col-6 " >
+                                  <div class="col-12" style="direction: rtl;text-align: right;"> 
+                                      <label for="" class="ml-1 font-weight-bold " style="font-size: 15px; ">دلیل مراجعه    </label>
+                                  </div>
+                                  <div class="col-10"  >
+                                      <select name="" id="" class="form-control" formControlName="admissionKind">
+                                          <option   [value]="i.id" *ngFor="let i of AdmissionKindList" >{{i.admissionKindValue}}   </option>
+                                     </select>
+                                  </div>
+                              </div>
+                              <div class="col-6 " >
+                                  <div class="col-12" style="direction: rtl;text-align: right;"> 
+                                      <label for="" class="ml-1 font-weight-bold " style="font-size: 15px;">  شکایت اصلی    </label>
+                                  </div>
+                                  <div class="col-10">
+                                      <select name="" id="" class="form-control"   >
+                                          <option  *ngFor="let i of MainDiseaseList" >
+                                              {{i.mainDiseaseValue}}  
+                                          </option>
+                                         
+                                     </select>
+                                  </div>
+                              </div>
+                          </div>  
+                      </div>
+                      <div class="row mt-1">
+                          <div class="col-12 d-flex" style="direction: rtl;">
+                              <div class="col-6 " >
+                                  <div class="col-12" style="direction: rtl;text-align: right;"> 
+                                      <label for="" class="ml-1 font-weight-bold " style="font-size: 15px;">تریاژکننده     </label>
+                                  </div>
+                                  <div class="col-10">
+                                      <select name="" id="" class="form-control" formControlName="prac">
+                                          <option value="">                     یک    
+                                          </option>
+                                          <option value="">                          دو 
+                                          </option>
+                                     </select>    
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="col-12" style="direction: rtl;text-align: right;"> 
+                                    <label for="" class="ml-1 font-weight-bold " style="font-size: 15px;">سطح تریاژ     </label>
+                                </div>
+                                <div class="col-10">
+                                    <select name="" id="" class="form-control" formControlName="triageLevel"> 
+                            <option [value]="i.Key" *ngFor="let i of TriageLevelList">{{i.Value}} </option>
+                                   </select>    
+                            </div>
+                            </div>
+                              </div>
+                          </div>  
+                      </div>
+                  
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-info btn-raised" (click)="c('Close click')">بستن</button>
+                    <button type="button" class="btn btn-outline-primary border ml-1" (click)="onSubmit()" [disabled]="signupForm.status==='INVALID'"  >  جستجو</button>
+                    <button type="button" class="btn btn-outline-primary border ml-1" (click)="resetList($event)" (click)="resetList()" >پیش فرض  </button>
+                  </div>
+                 
+            </form>
+     
+          </ng-template>
+    
+    
+
+
+
+
+

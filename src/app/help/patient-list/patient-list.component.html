@@ -1,0 +1,110 @@
+<style>
+   thead{
+       background-color: #63a4ff;
+       background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
+   }
+
+
+</style>
+<form action="" [formGroup]="filterForm" (ngSubmit)="onSubmit()" >
+    <div class="container-fluid" style="font-family: iransans">
+
+        <div class="row">
+            <div class="col-12 mt-2">
+                <!--Table-->
+                <table class="table table-hover table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">ردیف</th>
+                        <th scope="col">نام</th>
+                        <th scope="col">نام خانوادگی </th>
+                        <th scope="col">جنسیت </th>
+                        <th scope="col">کد ملی  </th>
+                        <th scope="col">سن</th>
+                        <th scope="col">کد بیمار</th>
+                        <th scope="col">مکان درخواست </th>
+                        <th scope="col">تاریخ درخواست </th>
+                        <th scope="col">تاریخ پذیرش </th>
+                        <th scope="col">وضعیت</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let i of patientList;let y=index" (click)="getId(i.caseWorkerID)" >
+                        <td scope="row">{{y}}</td>
+                        <td>{{i.firstName}}</td>
+                        <td>{{i.lastName}} </td>
+                        <td>{{i.genderName}}</td>
+                        <td>{{i.nationalCode}}</td>
+                        <td>{{i.age}}</td>
+                        <td>{{i.patientID}}</td>
+                        <td>{{i.locationName}}</td>
+                        <td>{{i.requestDate}}</td>
+                        <td>{{i.startDate}}</td>
+                        <td>
+                        <span *ngFor="let x of StatueList">
+                <span *ngIf="x.Key==i.statusIS">{{x.Value}}</span>
+            </span>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <!--table-->
+            </div>
+        </div>
+        <button type="button" (click)="GetDetails(content) ">جستجو</button>
+        <ng-template #content let-c="close" let-d="dismiss"  style="font-family: iransans, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" >
+
+            <div class="modal-header " style="background-color: #63a4ff;
+background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);direction: rtl" >
+                <h4 class="modal-title white" >جستجو</h4>
+            </div>
+            <div class="modal-body" id="kbModal-body">
+                <div class="col-12 justify-content-between my-2 d-flex" style="font-family: iransans;direction: rtl;text-align: right;margin-right: 30px" >
+                    <div class="col-6 ">
+                        <label for="" class="text-bold-700">کد ملی</label>
+                        <input type="text" class="form-control" formControlName="nationalCode">
+                    </div>
+                    <div class="col-6 ">
+                        <label for="" class="text-bold-700">کد بیمار</label>
+                        <input type="text" class="form-control" formControlName="patinetID">
+                    </div>
+                </div>
+
+                <div class="col-12 justify-content-between  d-flex" style="font-family: iransans;direction: rtl;text-align: right" >
+                    <div class="col-6 ">
+                        <label for="" class="text-bold-700">از تاریخ پذیرش  </label>
+                        <dp-date-picker
+                                dir="rtl"
+                                mode="day"
+                                class="form-control"
+                                placeholder="تاریخ"
+                                formControlName="startDate"
+                                theme="dp-material">
+                        </dp-date-picker>
+                    </div>
+                    <div class="col-6 ">
+                        <label for="" class="text-bold-700">تا تاریخ پذیرش</label>
+                        <dp-date-picker
+                                dir="rtl"
+                                mode="day"
+                                class="form-control"
+                                placeholder="تاریخ"
+                                formControlName="endDate"
+                                theme="dp-material">
+                        </dp-date-picker>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info btn-raised" (click)="c('Close click')">بستن</button>
+                <button type="button" class="btn btn-info btn-raised"  (click)="onSubmit()">جستجو</button>
+            </div>
+
+
+        </ng-template>
+
+        <!--Row-->
+    </div>
+</form>

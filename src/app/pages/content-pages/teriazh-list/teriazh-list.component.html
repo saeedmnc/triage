@@ -1,0 +1,25 @@
+<style>
+  .centr{
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+
+
+
+</style>
+
+
+<div  style="background-image: url(./../../../../assets/img/gallery/doctor.jpg);height: 100vh;width: 100%; background-repeat: no-repeat;background-size: cover" >
+  <div class="card" style="width: 18rem;" class="position-absolute centr border">
+    <div class="card-body" style="background-color: white;">
+      <h5 class="card-title text-center "> انتخاب مکان تریاژ </h5>
+      <select  #mySelect  (change)='getID(mySelect.value)' name='id'  class="form-control" style="">
+        <option value=""> انتخاب مکان</option>
+        <option  [value]="i.locationID"  *ngFor="let i of teriazhList">
+         {{i. locationName}}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
